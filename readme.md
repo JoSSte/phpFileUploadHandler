@@ -11,3 +11,9 @@ I realized that my handler was vulnerable after completing [the upload vulnerabi
 * `.php` files can be uploaded with null char in name  `.php%00.png` with a spoofed header (e.g. `image/png` instead of `application/x-php`)
   * Fix1: Implement magic number check.
   * Fix2: Scan for strings.
+
+### v0.1.0
+* `.php` files can still be uploaded with null char in name  `.php%00.png` with a spoofed header (e.g. `image/png` instead of `application/x-php`), but must have corect magic number.
+* No check of whether the header matches the extension.
+    * Fix1: scan for strings like `/bin/bash` and `<?php`?
+    * check for null bytes in file names?
