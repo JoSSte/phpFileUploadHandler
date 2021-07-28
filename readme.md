@@ -6,3 +6,8 @@ Since any client-side validation is easily circumvented, there is none in this p
 The upload handler is set up to first check that the tandard php file upload criteria are met, and then goes on to validate that the upload file is an image and can be saved.  
 ## Inspiration
 I realized that my handler was vulnerable after completing [the upload vulnerabilities room in tryhackme](https://tryhackme.com/room/uploadvulns) since I originally only checked the extension and the mime type.
+## Vulnerabilieies
+### v0.0.1
+* `.php` files can be uploaded with null char in name  `.php%00.png` with a spoofed header (e.g. `image/png` instead of `application/x-php`)
+  * Fix1: Implement magic number check.
+  * Fix2: Scan for strings.
