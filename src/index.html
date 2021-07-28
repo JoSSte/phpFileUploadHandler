@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        Upload file form
+    </title>
+</head>
+
+<body>
+    <h1>Form upload test</h1>
+    <div>
+
+        <form action="uploadFile.php" target="formoutput" method="POST" enctype="multipart/form-data">
+
+            <input type="file" name="inageFile">
+            <input type="submit">
+        </form>
+
+        <iframe name="formoutput">
+            
+        </iframe>
+    </div>
+    <div>
+        <p>This is a simple form upload tester, meant to try to both break the functionality and to improve my file
+            upload handler. Not even an <code>accept="image/*"</code> on the <code>&lt;input&gt;</code> element</p>
+        <h2>Environment</h2>
+        <p>Since any client-side validation is easily circumvented, there is none in this page.</p>
+        <p>The upload handler is set up to first check that the standard php file upload criteria are met, and then goes
+            on to validate that the upload file is an image and can be saved.</p>
+        <h2>Inspiration</h2>
+        <p>I realized that my handler was vulnerable after completing <a
+                href="https://tryhackme.com/room/uploadvulns">the upload vulnerabilities room in tryhackme</a> since I
+            originally only checked the extension and the mime type.</p>
+        <p></p>
+        <h2>Links</h2>
+        <ul>
+            <li>The upload handler <a href="uploadFile.php">uploadFile.php</a></li>
+        </ul>
+    </div>
+</body>
+
+</html>
