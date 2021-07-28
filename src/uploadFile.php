@@ -1,7 +1,22 @@
 <?php
 header("content-type: text/plain");
+//disable pretty print of errors
+xdebug_disable();
+ini_set('html_errors', false);
 
 error_reporting(E_ALL ^ E_NOTICE);
+
+function is_image($filename) {
+    // PNG, GIF, JFIF JPEG, EXIF JPEF (respectively)
+    $allowed = array('89504E47', '47494638', 'FFD8FFE0', 'FFD8FFE1');
+
+    $handle = fopen($filename, 'r');
+    $bytes = strtoupper(bin2hex(fread($handle, 4)));
+    fclose($handle);
+
+    return in_array($bytes, $allowed);
+}
+
 
 $resize = filter_input(INPUT_POST, "resize", FILTER_SANITIZE_STRING);
 $resize = (boolean) $resize;
@@ -39,21 +54,25 @@ if ($_FILES["inageFile"]["error"] != 0) {
 if ($preliminary_check) {
     echo "PASSED preliminary check\n";
     if (substr($_FILES["inageFile"]["type"], 0, 6) == "image/") {
-        $im["filename"] = str_replace(" ", "-", $_FILES["inageFile"]["name"]); //replace spaces with hyphens
-        $im["size"] = $_FILES["inageFile"]["size"];
-        list($im["width"], $im["height"], $im["type"], $tempattr) = getimagesize($_FILES["inageFile"]["tmp_name"]);
-        $im["type"] = $_FILES["inageFile"]["type"];
-        if (!file_exists($uploadfile)) {
-            error_log($_FILES["inageFile"]["name"] . " will not overwrite existing Logo. Would be saved.");
-            //if (move_uploaded_file($_FILES["inageFile"]["tmp_name"], $uploadfile)) {
+        if (is_image($_FILES["inageFile"]["tmp_name"])) {
+            $im["filename"] = str_replace(" ", "-", $_FILES["inageFile"]["name"]); //replace spaces with hyphens
+            $im["size"] = $_FILES["inageFile"]["size"];
+            list($im["width"], $im["height"], $im["type"], $tempattr) = getimagesize($_FILES["inageFile"]["tmp_name"]);
+            $im["type"] = $_FILES["inageFile"]["type"];
+            if (!file_exists($uploadfile)) {
+                error_log($_FILES["inageFile"]["name"] . " will not overwrite existing Logo. Would be saved.");
+                //if (move_uploaded_file($_FILES["inageFile"]["tmp_name"], $uploadfile)) {
                 error_log($_FILES["inageFile"]["name"] . " has been confirmed to be an image and would have been saved on the server.");
                 $file_ok = true;
             //} else {
             //    error_log("Error in file upload. " . $_FILES["inageFile"]["tmp_name"] . " cannot be moved to $uploadfile");
             //}
-        } else {
-            error_log("filename exists already");
-        }
+            } else {
+                error_log("filename exists already");
+            }
+        } else{
+            error_log($_FILES["inageFile"]["type"] . " does not match magic number");    
+        } 
     } else {
         error_log("Mime/type is not an image - received: " . $_FILES["inageFile"]["type"]);
     }
