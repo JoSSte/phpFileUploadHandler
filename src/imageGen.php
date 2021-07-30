@@ -47,21 +47,21 @@ $diffX = cos(deg2rad($seg_angle)) * $line_height;
 imageline($img, $centerX, $centerY, floor($centerX + $diffX), floor($centerY + $diffY), $blue);
 
 if ($seg_angle * 2 < 90) {
-	//prepare for second line
+	//prepare for third line
 	$diffY = sin(deg2rad($seg_angle * 2)) * $line_height;
 	$diffX = cos(deg2rad($seg_angle * 2)) * $line_height;
 
 
-	//draw second line 
+	//draw third line 
 	imageline($img, $centerX, $centerY, floor($centerX + $diffX), floor($centerY + $diffY), $red);
 
 	if ($seg_angle * 3 < 90) {
-		//prepare for second line
+		//prepare for fourth line
 		$diffY = sin(deg2rad($seg_angle * 3)) * $line_height;
 		$diffX = cos(deg2rad($seg_angle * 3)) * $line_height;
 
 
-		//draw second line 
+		//draw fourth line 
 		imageline($img, $centerX, $centerY, floor($centerX + $diffX), floor($centerY + $diffY), $black);
 	}
 }
