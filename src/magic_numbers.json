@@ -1,0 +1,51 @@
+[
+    {
+        "mime": "image",
+        "sub-mimes": [
+            {
+                "ext": "png",
+                "magic": [
+                    "89504E470D0A1A0A"
+                ]
+            },
+            {
+                "ext": "gif",
+                "magic": [
+                    "474946383761",
+                    "474946383961"
+                ]
+            },
+            {
+                "ext": "tif",
+                "altext": [
+                    "tiff"
+                ],
+                "magic": [
+                    "49492A00",
+                    "4D4D002A"
+                ]
+            },
+            {
+                "ext": "jpg",
+                "altext": [
+                    "jpeg",
+                    "jfif"
+                ],
+                "magic": [
+                    "FFD8FFDB",
+                    "FFD8FFE000104A46",
+                    "49460001",
+                    "FFD8FFEE",
+                    "FFD8FFE1",
+                    "69660000"
+                ]
+            },
+            {
+                "ext": "ico",
+                "magic": [
+                    "00000100"
+                ]
+            }
+        ]
+    }
+]
